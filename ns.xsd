@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schema targetNamespace="urn:CrearAlumno"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:CrearAlumno"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="Input"><!-- Input -->
+          <sequence>
+            <element name="nombre" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::nombre -->
+          </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="getInfo">
+      <complexType>
+          <sequence>
+            <element name="insert" type="ns:Input" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfo::insert -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element and type -->
+    <element name="getInfoResponse" type="ns:getInfoResponse"/>
+    <complexType name="getInfoResponse">
+          <sequence>
+            <element name="recepcion" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfoResponse::recepcion -->
+          </sequence>
+    </complexType>
+  </schema>
+
