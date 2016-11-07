@@ -6,13 +6,14 @@ struct Input{
 int main()
 {
    CrearAlumnoProxy service;
-   Input *al={
-   	"Ayaya"
-   };
-   char *result;
-   if (service.getInfo(al, result) == SOAP_OK)
-      std::cout << "VA" << std::endl;
-   else
-      service.soap_stream_fault(std::cerr);
+   ns1__Input *in = new ns1__Input();
+   in->nombre = "Bob";
+   ns1__getInfoResponse *result= new ns1__getInfoResponse();
+   _ns1__getInfo *info = new _ns1__getInfo();
+   info->insert = in;
+   
+
+   
+   service.getInfo(in, result);
    service.destroy(); // delete data and release memory
 } 
