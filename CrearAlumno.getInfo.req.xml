@@ -8,7 +8,7 @@
  <SOAP-ENV:Body>
   <ns:getInfo>
    <insert>
-    <nombre></nombre>
+    <nombre>GG</nombre>
    </insert>
   </ns:getInfo>
  </SOAP-ENV:Body>
