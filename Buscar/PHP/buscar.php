@@ -1,21 +1,36 @@
+ <?php
+define("path_wsdl", "http://localhost/BuscarAlumno.wsdl");
+define("metodo", "getInfo");
+define("location", "http://localhost/cgi-bin/BuscarAlumno.cgi");
+define("trace",1);
 
-<html>
-<head>
-	<title>HOla</title>
-</head>
-<body>
-	<h1>Hola</h1>
-	<form class="" action="index.php" method="get">
-		<input type="text" name="nombre" value="">
-		<input type="submit" name="name" value="">
-	</form>
-	<?php
-	define("path_wsdl", "http://localhost/CrearAlumno.wsdl");
-	define("metodo", "getInfo");
-	define("location", "http://localhost/cgi-bin/CrearAlumno.cgi");
-	define("trace",1);
+/**
+* 
+*/
+class ns__Usuario
+{
+	public $id;
+	public $nombre;
+	function __construct($id, $nombre)
+	{
+		$this->id = $id;
+		$this->nombre = $nombre;
+	}
+	function getId()
+	{
+		return $id;
+	}
+	function getNombre()
+	{
+		return $nombre;
+	}
+}
 
-function CrearAlumno($nombre)
+
+Alumno $alum = new Alumno();
+
+
+function BuscarAlumno($id)
 {
 
 $metodoIdentificacion = metodo;
@@ -23,13 +38,12 @@ $servicio=path_wsdl;
 $parametros=array();
 $parametros['location']=location;
 $parametros['trace']=trace;
+//$datos['id'] = $id;
 
-$datos['nombre'] = $nombre;
-
-$parametros['insert']= $id;
+$parametros['busqueda']= $id;
 try {
-$client = new SoapClient($servicio, $parametros);
-$result = $client->$metodoIdentificacion($parametros);
+$client = new SoapClient($servicio, );
+$result = $client->$metodoIdentificacion( array('classmap' => array('busqueda' => 2, 'result_soap' => "Alumnos")));
 $salida = "REQUEST:\n" . $client->__getLastRequest() . "\n";
 $salida .= "REQUEST HEADERS:\n" . $client->__getLastRequestHeaders() . "\n";
 $salida .= "Response:\n" . $client->__getLastResponse() . "\n";
@@ -45,9 +59,6 @@ return $error;
 }
 }
 
-print_r(CrearAlumno($_GET['nombre']));
-
-
+print(BuscarAlumno('2'));
+echo $alum->getNombre();
 ?>
-</body>
-</html>
