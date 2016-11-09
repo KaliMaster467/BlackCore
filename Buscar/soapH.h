@@ -123,6 +123,70 @@ inline int soap_read_int(struct soap *soap, int *p)
 }
 #endif
 
+#ifndef SOAP_TYPE_std__string_DEFINED
+#define SOAP_TYPE_std__string_DEFINED
+
+inline void soap_default_std__string(struct soap *soap, std::string *p)
+{
+	(void)soap; /* appease -Wall -Werror */
+	p->erase();
+}
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__string(struct soap*, const std::string *);
+
+#define soap_std__string2s(soap, a) ((a).c_str())
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_std__string(struct soap*, const char*, int, const std::string*, const char*);
+
+#define soap_s2std__string(soap, s, a) soap_s2stdchar((soap), (s), (a), 0, -1, NULL)
+SOAP_FMAC3 std::string * SOAP_FMAC4 soap_in_std__string(struct soap*, const char*, std::string*, const char*);
+SOAP_FMAC1 std::string * SOAP_FMAC2 soap_instantiate_std__string(struct soap*, int, const char*, const char*, size_t*);
+
+inline std::string * soap_new_std__string(struct soap *soap, int n = -1)
+{
+	return soap_instantiate_std__string(soap, n, NULL, NULL, NULL);
+}
+
+inline std::string * soap_new_req_std__string(
+	struct soap *soap)
+{
+	std::string *_p = soap_new_std__string(soap);
+	if (_p)
+	{	soap_default_std__string(soap, _p);
+	}
+	return _p;
+}
+
+inline std::string * soap_new_set_std__string(
+	struct soap *soap)
+{
+	std::string *_p = soap_new_std__string(soap);
+	if (_p)
+	{	soap_default_std__string(soap, _p);
+	}
+	return _p;
+}
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_std__string(struct soap*, const std::string *, const char*, const char*);
+
+inline int soap_write_std__string(struct soap *soap, std::string const*p)
+{
+	soap_free_temp(soap);
+	if (p)
+	{	if (soap_begin_send(soap) || soap_put_std__string(soap, p, "string", "") || soap_end_send(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+SOAP_FMAC3 std::string * SOAP_FMAC4 soap_get_std__string(struct soap*, std::string *, const char*, const char*);
+
+inline int soap_read_std__string(struct soap *soap, std::string *p)
+{
+	if (p)
+	{	if (soap_begin_recv(soap) || soap_get_std__string(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+#endif
+
 #ifndef SOAP_TYPE_ns__Usuario_DEFINED
 #define SOAP_TYPE_ns__Usuario_DEFINED
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns__Usuario(struct soap*, const char*, int, const ns__Usuario *, const char*);
@@ -136,12 +200,14 @@ inline ns__Usuario * soap_new_ns__Usuario(struct soap *soap, int n = -1)
 
 inline ns__Usuario * soap_new_req_ns__Usuario(
 	struct soap *soap,
-	int id)
+	int id,
+	const std::string& nombre)
 {
 	ns__Usuario *_p = soap_new_ns__Usuario(soap);
 	if (_p)
 	{	_p->soap_default(soap);
 		_p->ns__Usuario::id = id;
+		_p->ns__Usuario::nombre = nombre;
 	}
 	return _p;
 }
@@ -149,7 +215,7 @@ inline ns__Usuario * soap_new_req_ns__Usuario(
 inline ns__Usuario * soap_new_set_ns__Usuario(
 	struct soap *soap,
 	int id,
-	const char *nombre)
+	const std::string& nombre)
 {
 	ns__Usuario *_p = soap_new_ns__Usuario(soap);
 	if (_p)

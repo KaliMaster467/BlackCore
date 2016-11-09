@@ -18,7 +18,7 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
 
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.8.36 2016-11-08 04:24:23 GMT")
+SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.8.36 2016-11-08 19:32:57 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -195,6 +195,8 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_byte(soap, NULL, NULL, "xsd:byte");
 	case SOAP_TYPE_int:
 		return soap_in_int(soap, NULL, NULL, "xsd:int");
+	case SOAP_TYPE_std__string:
+		return soap_in_std__string(soap, NULL, NULL, "xsd:string");
 	case SOAP_TYPE_ns__Usuario:
 		return soap_in_ns__Usuario(soap, NULL, NULL, "ns:Usuario");
 	case SOAP_TYPE_ns__getInfo:
@@ -218,6 +220,10 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 	{	const char *t = soap->type;
 		if (!*t)
 			t = soap->tag;
+		if (!soap_match_tag(soap, t, "xsd:string"))
+		{	*type = SOAP_TYPE_std__string;
+			return soap_in_std__string(soap, NULL, NULL, NULL);
+		}
 		if (!soap_match_tag(soap, t, "ns:Usuario"))
 		{	*type = SOAP_TYPE_ns__Usuario;
 			return soap_in_ns__Usuario(soap, NULL, NULL, NULL);
@@ -313,6 +319,8 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_byte(soap, tag, id, (const char *)ptr, "xsd:byte");
 	case SOAP_TYPE_int:
 		return soap_out_int(soap, tag, id, (const int *)ptr, "xsd:int");
+	case SOAP_TYPE_std__string:
+		return soap_out_std__string(soap, tag, id, (const std::string *)ptr, "xsd:string");
 	case SOAP_TYPE_ns__Usuario:
 		return ((ns__Usuario *)ptr)->soap_out(soap, tag, id, "ns:Usuario");
 	case SOAP_TYPE_ns__getInfo:
@@ -340,6 +348,9 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	(void)soap; (void)ptr; (void)type; /* appease -Wall -Werror */
 	switch (type)
 	{
+	case SOAP_TYPE_std__string:
+		soap_serialize_std__string(soap, (const std::string *)ptr);
+		break;
 	case SOAP_TYPE_ns__Usuario:
 		((ns__Usuario *)ptr)->soap_serialize(soap);
 		break;
@@ -366,6 +377,8 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_instantiate(struct soap *soap, int t, const ch
 {	(void)type;
 	switch (t)
 	{
+	case SOAP_TYPE_std__string:
+		return (void*)soap_instantiate_std__string(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_ns__Usuario:
 		return (void*)soap_instantiate_ns__Usuario(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_ns__getInfo:
@@ -397,6 +410,12 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_instantiate(struct soap *soap, int t, const ch
 SOAP_FMAC3 int SOAP_FMAC4 soap_fdelete(struct soap_clist *p)
 {	switch (p->type)
 	{
+	case SOAP_TYPE_std__string:
+		if (p->size < 0)
+			SOAP_DELETE(static_cast<std::string*>(p->ptr));
+		else
+			SOAP_DELETE_ARRAY(static_cast<std::string*>(p->ptr));
+		break;
 	case SOAP_TYPE_ns__Usuario:
 		if (p->size < 0)
 			SOAP_DELETE(static_cast<ns__Usuario*>(p->ptr));
@@ -486,6 +505,10 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_finsert(struct soap *soap, int t, int tt, void *
 	(void)soap; (void)t; (void)p; (void)index; (void)q; (void)x; /* appease -Wall -Werror */
 	switch (tt)
 	{
+	case SOAP_TYPE_std__string:
+		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy std::string type=%d location=%p object=%p\n", t, p, q));
+		*(std::string*)p = *(std::string*)q;
+		break;
 	case SOAP_TYPE_ns__Usuario:
 		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy ns__Usuario type=%d location=%p object=%p\n", t, p, q));
 		*(ns__Usuario*)p = *(ns__Usuario*)q;
@@ -601,18 +624,92 @@ SOAP_FMAC3 int * SOAP_FMAC4 soap_get_int(struct soap *soap, int *p, const char *
 	return p;
 }
 
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__string(struct soap *soap, const std::string *a)
+{	(void)soap; (void)a; /* appease -Wall -Werror */
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_std__string(struct soap *soap, const char *tag, int id, const std::string *s, const char *type)
+{
+	if ((soap->mode & SOAP_C_NILSTRING) && s->empty())
+		return soap_element_null(soap, tag, id, type);
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, s, SOAP_TYPE_std__string), type) || soap_string_out(soap, s->c_str(), 0) || soap_element_end_out(soap, tag))
+		return soap->error;
+	return SOAP_OK;
+}
+
+SOAP_FMAC3 std::string * SOAP_FMAC4 soap_in_std__string(struct soap *soap, const char *tag, std::string *s, const char *type)
+{
+	(void)type; /* appease -Wall -Werror */
+	if (soap_element_begin_in(soap, tag, 1, NULL))
+		return NULL;
+	if (!s)
+		s = soap_new_std__string(soap, -1);
+	if (soap->null)
+		if (s)
+			s->erase();
+	if (soap->body && !*soap->href)
+	{	char *t;
+		s = (std::string*)soap_id_enter(soap, soap->id, s, SOAP_TYPE_std__string, sizeof(std::string), soap->type, soap->arrayType, soap_instantiate, soap_fbase);
+		if (s)
+		{	if (!(t = soap_string_in(soap, 1, 0, -1, NULL)))
+				return NULL;
+			s->assign(t);
+		}
+	}
+	else
+		s = (std::string*)soap_id_forward(soap, soap->href, soap_id_enter(soap, soap->id, s, SOAP_TYPE_std__string, sizeof(std::string), soap->type, soap->arrayType, soap_instantiate, soap_fbase), 0, SOAP_TYPE_std__string, SOAP_TYPE_std__string, sizeof(std::string), 0, soap_finsert, NULL);
+	if (soap->body && soap_element_end_in(soap, tag))
+		return NULL;
+	return s;
+}
+
+SOAP_FMAC1 std::string * SOAP_FMAC2 soap_instantiate_std__string(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_std__string(%p, %d, %s, %s)\n", soap, n, type?type:"", arrayType?arrayType:""));
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	std::string *p;
+	size_t k = sizeof(std::string);
+	if (n < 0)
+	{	p = SOAP_NEW(std::string);
+	}
+	else
+	{	p = SOAP_NEW_ARRAY(std::string, n);
+		k *= n;
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated std::string location=%p n=%d\n", p, n));
+	soap_link(soap, p, SOAP_TYPE_std__string, n, soap_fdelete);
+	if (size)
+		*size = k;
+	return p;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_std__string(struct soap *soap, const std::string *a, const char *tag, const char *type)
+{
+	if (soap_out_std__string(soap, tag ? tag : "string", -2, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 std::string * SOAP_FMAC4 soap_get_std__string(struct soap *soap, std::string *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_std__string(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
 void ns__Usuario::soap_default(struct soap *soap)
 {
 	(void)soap; /* appease -Wall -Werror */
 	soap_default_int(soap, &this->ns__Usuario::id);
-	this->ns__Usuario::nombre = NULL;
+	soap_default_std__string(soap, &this->ns__Usuario::nombre);
 }
 
 void ns__Usuario::soap_serialize(struct soap *soap) const
 {
 	(void)soap; /* appease -Wall -Werror */
 #ifndef WITH_NOIDREF
-	soap_serialize_string(soap, (char*const*)&this->ns__Usuario::nombre);
+	soap_serialize_std__string(soap, &this->ns__Usuario::nombre);
 #endif
 }
 
@@ -628,7 +725,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns__Usuario(struct soap *soap, const char *ta
 		return soap->error;
 	if (soap_out_int(soap, "id", -1, &a->ns__Usuario::id, ""))
 		return soap->error;
-	if (soap_out_string(soap, "nombre", -1, (char*const*)&a->ns__Usuario::nombre, ""))
+	if (soap_out_std__string(soap, "nombre", -1, &a->ns__Usuario::nombre, ""))
 		return soap->error;
 	return soap_element_end_out(soap, tag);
 }
@@ -664,7 +761,7 @@ SOAP_FMAC3 ns__Usuario * SOAP_FMAC4 soap_in_ns__Usuario(struct soap *soap, const
 					continue;
 				}
 			if (soap_flag_nombre1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_string(soap, "nombre", (char**)&a->ns__Usuario::nombre, "xsd:string"))
+				if (soap_in_std__string(soap, "nombre", &a->ns__Usuario::nombre, "xsd:string"))
 				{	soap_flag_nombre1--;
 					continue;
 				}
@@ -677,7 +774,7 @@ SOAP_FMAC3 ns__Usuario * SOAP_FMAC4 soap_in_ns__Usuario(struct soap *soap, const
 		}
 		if (soap_element_end_in(soap, tag))
 			return NULL;
-		if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_id1 > 0))
+		if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_id1 > 0 || soap_flag_nombre1 > 0))
 		{	soap->error = SOAP_OCCURS;
 			return NULL;
 		}

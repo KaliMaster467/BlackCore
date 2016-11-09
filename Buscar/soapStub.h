@@ -45,8 +45,8 @@ class SOAP_CMAC ns__Usuario {
       public:
         /// Required element 'id' of XSD type 'xsd:int'
         int id;
-        /// Optional element 'nombre' of XSD type 'xsd:string'
-        const char *nombre;
+        /// Required element 'nombre' of XSD type 'xsd:string'
+        std::string nombre;
       public:
         /// Return unique type id SOAP_TYPE_ns__Usuario
         virtual int soap_type(void) const { return SOAP_TYPE_ns__Usuario; }
@@ -69,7 +69,6 @@ class SOAP_CMAC ns__Usuario {
         ns__Usuario()
         {
           id = (int)0;
-          nombre = (char *)0;
         }
         virtual ~ns__Usuario() { }
         /// Friend allocator used by soap_new_ns__Usuario(struct soap*, int)
@@ -79,7 +78,7 @@ class SOAP_CMAC ns__Usuario {
 
 /* BuscarAlumno.h:8 */
 #ifndef SOAP_TYPE_ns__getInfo
-#define SOAP_TYPE_ns__getInfo (10)
+#define SOAP_TYPE_ns__getInfo (11)
 /* complex XSD type 'ns:getInfo': */
 struct ns__getInfo {
       public:
@@ -101,7 +100,7 @@ struct ns__getInfo {
 /* BuscarAlumno.h:8 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (11)
+#define SOAP_TYPE_SOAP_ENV__Header (12)
 /* SOAP_ENV__Header: */
 struct SOAP_ENV__Header {
       public:
@@ -120,7 +119,7 @@ struct SOAP_ENV__Header {
 /* BuscarAlumno.h:8 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (12)
+#define SOAP_TYPE_SOAP_ENV__Code (13)
 /* Type SOAP_ENV__Code is a recursive data type, (in)directly referencing itself through its (base or derived class) members */
 /* SOAP_ENV__Code: */
 struct SOAP_ENV__Code {
@@ -147,7 +146,7 @@ struct SOAP_ENV__Code {
 /* BuscarAlumno.h:8 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (14)
+#define SOAP_TYPE_SOAP_ENV__Detail (15)
 /* SOAP_ENV__Detail: */
 struct SOAP_ENV__Detail {
       public:
@@ -175,7 +174,7 @@ struct SOAP_ENV__Detail {
 /* BuscarAlumno.h:8 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (17)
+#define SOAP_TYPE_SOAP_ENV__Reason (18)
 /* SOAP_ENV__Reason: */
 struct SOAP_ENV__Reason {
       public:
@@ -198,7 +197,7 @@ struct SOAP_ENV__Reason {
 /* BuscarAlumno.h:8 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (18)
+#define SOAP_TYPE_SOAP_ENV__Fault (19)
 /* SOAP_ENV__Fault: */
 struct SOAP_ENV__Fault {
       public:
@@ -278,6 +277,11 @@ typedef char *_XML;
 #define SOAP_TYPE_int (1)
 #endif
 
+/* std::string has binding name 'std__string' for type 'xsd:string' */
+#ifndef SOAP_TYPE_std__string
+#define SOAP_TYPE_std__string (8)
+#endif
+
 /* ns__Usuario has binding name 'ns__Usuario' for type 'ns:Usuario' */
 #ifndef SOAP_TYPE_ns__Usuario
 #define SOAP_TYPE_ns__Usuario (7)
@@ -285,52 +289,52 @@ typedef char *_XML;
 
 /* struct SOAP_ENV__Fault has binding name 'SOAP_ENV__Fault' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (18)
+#define SOAP_TYPE_SOAP_ENV__Fault (19)
 #endif
 
 /* struct SOAP_ENV__Reason has binding name 'SOAP_ENV__Reason' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (17)
+#define SOAP_TYPE_SOAP_ENV__Reason (18)
 #endif
 
 /* struct SOAP_ENV__Detail has binding name 'SOAP_ENV__Detail' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (14)
+#define SOAP_TYPE_SOAP_ENV__Detail (15)
 #endif
 
 /* struct SOAP_ENV__Code has binding name 'SOAP_ENV__Code' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (12)
+#define SOAP_TYPE_SOAP_ENV__Code (13)
 #endif
 
 /* struct SOAP_ENV__Header has binding name 'SOAP_ENV__Header' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (11)
+#define SOAP_TYPE_SOAP_ENV__Header (12)
 #endif
 
 /* struct ns__getInfo has binding name 'ns__getInfo' for type 'ns:getInfo' */
 #ifndef SOAP_TYPE_ns__getInfo
-#define SOAP_TYPE_ns__getInfo (10)
+#define SOAP_TYPE_ns__getInfo (11)
 #endif
 
 /* struct SOAP_ENV__Reason * has binding name 'PointerToSOAP_ENV__Reason' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_PointerToSOAP_ENV__Reason (20)
+#define SOAP_TYPE_PointerToSOAP_ENV__Reason (21)
 #endif
 
 /* struct SOAP_ENV__Detail * has binding name 'PointerToSOAP_ENV__Detail' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_PointerToSOAP_ENV__Detail (19)
+#define SOAP_TYPE_PointerToSOAP_ENV__Detail (20)
 #endif
 
 /* struct SOAP_ENV__Code * has binding name 'PointerToSOAP_ENV__Code' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_PointerToSOAP_ENV__Code (13)
+#define SOAP_TYPE_PointerToSOAP_ENV__Code (14)
 #endif
 
 /* ns__Usuario * has binding name 'PointerTons__Usuario' for type 'ns:Usuario' */
 #ifndef SOAP_TYPE_PointerTons__Usuario
-#define SOAP_TYPE_PointerTons__Usuario (8)
+#define SOAP_TYPE_PointerTons__Usuario (9)
 #endif
 
 /* _XML has binding name '_XML' for type '' */

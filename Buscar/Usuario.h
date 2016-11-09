@@ -3,5 +3,5 @@
 class ns__Usuario
 {
 	int id;
-	const char *nombre;
+	std::string nombre;
 };

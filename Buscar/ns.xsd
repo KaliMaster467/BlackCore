@@ -22,7 +22,7 @@
     <complexType name="Usuario">
           <sequence>
             <element name="id" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::id -->
-            <element name="nombre" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::nombre -->
+            <element name="nombre" type="xsd:string" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::nombre -->
           </sequence>
     </complexType>
   </schema>
