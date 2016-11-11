@@ -4,19 +4,21 @@
   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:ns="urn:CrearAlumno">
+  xmlns:ns="urn:RegistryOperations">
  <SOAP-ENV:Body>
-  <ns:getInfo>
-   <insert>
-    <FLastName>Reyes</FLastName>
-    <SLastName>Briseño</SLastName>
-    <Name>Alberto</Name>
-    <Telephone>55130</Telephone>
-    <Email>hola@gmai.com</Email>
-    <Delegation>Coyi</Delegation>
-    <passw>mami</passw>
+  <ns:InsertUser>
+   <userIn>
+    <Id>0</Id>
+    <RegisterDate></RegisterDate>
+    <FLastName></FLastName>
+    <SLastName></SLastName>
+    <Name></Name>
+    <Telephone>0</Telephone>
+    <Email></Email>
+    <Delegation></Delegation>
     <Direction></Direction>
-   </insert>
-  </ns:getInfo>
+    <Status></Status>
+   </userIn>
+  </ns:InsertUser>
  </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

@@ -1,5 +1,5 @@
 #include "soapH.h" /* get the gSOAP-generated definitions */
-#include "CrearAlumno.nsmap" /* get the gSOAP-generated namespace bindings */ 
+#include "CrearAlumno.nsmap" /* get the gSOAP-generated namespace bindings */
 #include <iostream>
 #include <string>
 #include "mysql_connection.h"
@@ -9,12 +9,12 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#define PATH "/var/log/CreaAlumno/" 
+#define PATH "/var/log/CreaAlumno/"
 #define server "localhost"
 #define user "root"
 #define pass ""
-#define database "DB"
-#define table "alumnos"
+#define database "NovaConnect"
+#define table "Users"
 
 int main(){
 	struct soap soap;
@@ -39,7 +39,7 @@ int main(){
 	soap_set_sent_logfile(&soap, logf2);
 	soap_set_test_logfile(&soap, logf3);
 
-	soap_serve(&soap); 
+	soap_serve(&soap);
 }
 int ns__getInfo(struct soap *soap, struct Input *insert, struct ns__getInfoResponse *result_soap)
 {
@@ -48,34 +48,55 @@ int ns__getInfo(struct soap *soap, struct Input *insert, struct ns__getInfoRespo
 	sql::Statement *stmt;
 	sql::ResultSet *res;
 	sql::PreparedStatement *pstmt;
-	
-	std::string nombre(insert->nombre);
+
+	std::string nombre(insert->Name);
+	std::string fname(insert->FLastName);
+	std::string sname(insert->SLastName);
+	std::string mail(insert->Email);
+	std::string del(insert->Delegation);
+	std::string passw(insert->passw);
+	std::string dir(insert->Direction);
+
+	char query[1000];
+
 	//char nombre[45];
 
 	//sprintf(nombre,insert->nombre);
 
 	try{
 		driver = get_driver_instance();
-		con = driver->connect("localhost", "root", "");
-		con->setSchema("DB");
+		con = driver->connect(server, user, pass);
+		con->setSchema(database);
 
 	}catch(sql::SQLException &e){
-		 return soap_sender_fault(soap, "Error -1", "ERROR Conexion con Base de Datos"); 
+		 return soap_sender_fault(soap, "Error -1", "ERROR Conexion con Base de Datos");
 	}
 
 	try{
-		pstmt = con->prepareStatement("INSERT INTO alumnos(Nombre) VALUES(?)");
-		pstmt->setString(1, nombre);
+
+		//sprintf(query, "INSERT INTO %s(UserFirstLastName, UserSecondLastName, UserRealName, UserTelephone, UserEmail, UserDel, UserPass, UserDir) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", table);
+
+		pstmt = con->prepareStatement("CALL sp_registerUser(?, ?, ?, ?, ?, ?, ?, ?)");
+		pstmt->setString(1, fname);
+		pstmt->setString(2, sname);
+		pstmt->setString(3, nombre);
+		pstmt->setInt(4, insert->Telephone);
+		pstmt->setString(5, mail);
+		pstmt->setString(6, del);
+		pstmt->setString(7, passw);
+		pstmt->setString(8, dir);
+
 		pstmt->executeUpdate();
+
 	}catch(sql::SQLException &e){
 		  std::cout << "# ERR: SQLException in " << __FILE__;
-  std::cout << "(" << __FUNCTION__ << ") on line " 
+  std::cout << "(" << __FUNCTION__ << ") on line "
      << __LINE__ << std::endl;
   std::cout << "# ERR: " << e.what();
   std::cout << " (MySQL error code: " << e.getErrorCode();
-  std::cout << ", SQLState: " << e.getSQLState() << 
+  std::cout << ", SQLState: " << e.getSQLState() <<
      " )" << std::endl;
-		 return soap_sender_fault(soap, "Error 3", "Registro No Ingresado"); 
+		 return soap_sender_fault(soap, "Error 3", "Registro No Ingresado");
 	}
 	result_soap->recepcion="OK";
 

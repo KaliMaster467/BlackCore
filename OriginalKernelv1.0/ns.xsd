@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schema targetNamespace="urn:RegistryOperations"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:RegistryOperations"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="User"><!-- ns__User -->
+          <sequence>
+            <element name="Id" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__User::Id -->
+            <element name="RegisterDate" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::RegisterDate -->
+            <element name="FLastName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::FLastName -->
+            <element name="SLastName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::SLastName -->
+            <element name="Name" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::Name -->
+            <element name="Telephone" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__User::Telephone -->
+            <element name="Email" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::Email -->
+            <element name="Delegation" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::Delegation -->
+            <element name="Direction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::Direction -->
+            <element name="Status" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__User::Status -->
+          </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="InsertUser">
+      <complexType>
+          <sequence>
+            <element name="userIn" type="ns:User" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__InsertUser::userIn -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element -->
+    <element name="InsertUserResponse">
+      <complexType>
+          <sequence>
+            <element name="result-soap" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__InsertUser::result_soap -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation request element -->
+    <element name="GetUser">
+      <complexType>
+          <sequence>
+            <element name="user" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__GetUser::user -->
+            <element name="pass" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__GetUser::pass -->
+            <element name="userGet" type="ns:User" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__GetUser::userGet -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element -->
+    <element name="GetUserResponse">
+      <complexType>
+          <sequence>
+            <element name="result-soap" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__GetUser::result_soap -->
+          </sequence>
+      </complexType>
+    </element>
+  </schema>
+

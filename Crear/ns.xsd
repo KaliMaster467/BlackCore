@@ -11,7 +11,14 @@
     <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
     <complexType name="Input"><!-- Input -->
           <sequence>
-            <element name="nombre" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::nombre -->
+            <element name="FLastName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::FLastName -->
+            <element name="SLastName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::SLastName -->
+            <element name="Name" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::Name -->
+            <element name="Telephone" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- Input::Telephone -->
+            <element name="Email" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::Email -->
+            <element name="Delegation" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::Delegation -->
+            <element name="passw" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::passw -->
+            <element name="Direction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::Direction -->
           </sequence>
     </complexType>
     <!-- operation request element -->
