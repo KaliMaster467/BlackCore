@@ -1,5 +1,5 @@
 #include "soapH.h" /* get the gSOAP-generated definitions */
-#include "BuscarAlumno.nsmap" /* get the gSOAP-generated namespace bindings */ 
+#include "BuscarAlumno.nsmap" /* get the gSOAP-generated namespace bindings */
 #include <iostream>
 #include <string>
 #include "mysql_connection.h"
@@ -13,7 +13,7 @@
 #define server "localhost"
 #define user "root"
 #define pass ""
-#define db "DB"
+#define db "NovaConnect"
 #define table "alumnos"
 
 int main(){
@@ -41,20 +41,22 @@ int main(){
 	soap_set_sent_logfile(&soap, logf2);
 	soap_set_test_logfile(&soap, logf3);
 
-	soap_serve(&soap); 
+	soap_serve(&soap);
 
 }
 
-int ns__getInfo(struct soap *soap, int busqueda, ns__Usuario *result_soap){
+int ns__getInfo(struct soap *soap, char *user, char *pass, ns__Usuario *result_soap){
 	sql::Driver *driver;
 	sql::Connection *con;
 	sql::Statement *stmt;
 	sql::ResultSet *res;
 	sql::PreparedStatement *pstmt;
-	
-	char query[1000]; 
+
+	char query[1000];
 	int id = busqueda;
 
+	std::string usuario(user);
+	std::string psw(pass);
 
 	//char nombre[45];
 
@@ -62,16 +64,16 @@ int ns__getInfo(struct soap *soap, int busqueda, ns__Usuario *result_soap){
 
 	try{
 		driver = get_driver_instance();
-		con = driver->connect("localhost", "root", "");
-		con->setSchema("DB");
+		con = driver->connect(server, user, pass);
+		con->setSchema(db);
 
 	}catch(sql::SQLException &e){
-		 return soap_sender_fault(soap, "Error -1", "ERROR Conexion con Base de Datos"); 
+		 return soap_sender_fault(soap, "Error -1", "ERROR Conexion con Base de Datos");
 	}
 
 	try{
 		stmt = con->createStatement();
-		sprintf(query, "SELECT * FROM %s WHERE Id = %i",table, id);
+		sprintf(query, "SELECT * FROM %s WHERE UserRealName = %s AND UserPass = %s",table, usuario, psw);
 		res = stmt->executeQuery(query);
 		while(res->next()){
 			result_soap->id = res->getInt(1);
@@ -79,16 +81,16 @@ int ns__getInfo(struct soap *soap, int busqueda, ns__Usuario *result_soap){
 		}
 	}catch(sql::SQLException &e){
 		  std::cout << "# ERR: SQLException in " << __FILE__;
-  std::cout << "(" << __FUNCTION__ << ") on line " 
+  std::cout << "(" << __FUNCTION__ << ") on line "
      << __LINE__ << std::endl;
   std::cout << "# ERR: " << e.what();
   std::cout << " (MySQL error code: " << e.getErrorCode();
-  std::cout << ", SQLState: " << e.getSQLState() << 
+  std::cout << ", SQLState: " << e.getSQLState() <<
      " )" << std::endl;
-		 return soap_sender_fault(soap, "Error 3", "No pude rescatar dato"); 
+		 return soap_sender_fault(soap, "Error 3", "No pude rescatar dato");
 	}
-	
+
 
 	return SOAP_OK;
-	delete stmt;	
+	delete stmt;
 }

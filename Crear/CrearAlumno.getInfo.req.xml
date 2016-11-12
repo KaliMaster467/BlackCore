@@ -8,14 +8,14 @@
  <SOAP-ENV:Body>
   <ns:getInfo>
    <insert>
-    <FLastName>Reyes</FLastName>
-    <SLastName>Briseño</SLastName>
-    <Name>Alberto</Name>
-    <Telephone>55130</Telephone>
-    <Email>hola@gmai.com</Email>
+    <FLastName>Riko</FLastName>
+    <SLastName>Poio</SLastName>
+    <Name>Al</Name>
+    <Telephone>346</Telephone>
+    <Email>hola@gmsdfm</Email>
     <Delegation>Coyi</Delegation>
-    <passw>mami</passw>
-    <Direction></Direction>
+    <passw>dada</passw>
+    <Direction>laka</Direction>
    </insert>
   </ns:getInfo>
  </SOAP-ENV:Body>
