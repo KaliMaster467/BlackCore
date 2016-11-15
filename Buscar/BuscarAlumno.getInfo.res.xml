@@ -7,8 +7,17 @@
   xmlns:ns="urn:BuscarAlumno">
  <SOAP-ENV:Body>
   <ns:Usuario>
-   <id>0</id>
-   <nombre></nombre>
+   <Id>0</Id>
+   <Date></Date>
+   <FLastName></FLastName>
+   <SLastName></SLastName>
+   <Name></Name>
+   <Telephone>0</Telephone>
+   <Email></Email>
+   <Delegation></Delegation>
+   <passw></passw>
+   <Direction></Direction>
+   <status>false</status>
   </ns:Usuario>
  </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

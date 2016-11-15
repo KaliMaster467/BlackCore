@@ -10,11 +10,7 @@
 #include <cppconn/prepared_statement.h>
 
 #define PATH "/var/log/BuscarAlumno"
-#define server "localhost"
-#define user "root"
-#define pass ""
-#define db "NovaConnect"
-#define table "alumnos"
+#define table "NovaConnect"
 
 int main(){
 	struct soap soap;
@@ -45,7 +41,7 @@ int main(){
 
 }
 
-int ns__getInfo(struct soap *soap, char *user, char *pass, ns__Usuario *result_soap){
+int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soap){
 	sql::Driver *driver;
 	sql::Connection *con;
 	sql::Statement *stmt;
@@ -53,10 +49,12 @@ int ns__getInfo(struct soap *soap, char *user, char *pass, ns__Usuario *result_s
 	sql::PreparedStatement *pstmt;
 
 	char query[1000];
-	int id = busqueda;
+	char user[20];
 
-	std::string usuario(user);
-	std::string psw(pass);
+	sprintf(user, "%s", search->user);
+
+	//std::string usuario(search->user);
+	//std::string psw(search->pass);
 
 	//char nombre[45];
 
@@ -64,8 +62,10 @@ int ns__getInfo(struct soap *soap, char *user, char *pass, ns__Usuario *result_s
 
 	try{
 		driver = get_driver_instance();
-		con = driver->connect(server, user, pass);
-		con->setSchema(db);
+
+		con = driver->connect("localhost", "root", "");
+		con->setSchema("NovaConnect");
+		//mysql_options(con, MYSQL_SET_CHARSET_NAME, "utf8");
 
 	}catch(sql::SQLException &e){
 		 return soap_sender_fault(soap, "Error -1", "ERROR Conexion con Base de Datos");
@@ -73,11 +73,42 @@ int ns__getInfo(struct soap *soap, char *user, char *pass, ns__Usuario *result_s
 
 	try{
 		stmt = con->createStatement();
-		sprintf(query, "SELECT * FROM %s WHERE UserRealName = %s AND UserPass = %s",table, usuario, psw);
+		sprintf(query, "SELECT * FROM Users WHERE UserRealName = '%s'",user);
 		res = stmt->executeQuery(query);
 		while(res->next()){
-			result_soap->id = res->getInt(1);
-			result_soap->nombre=res->getString(2).c_str();
+
+			for(int i = 1; i < 12; i++)
+				std::cout << res->getString(i) << std::endl;
+
+			result_soap->Id = res->getInt(1);
+
+			std::string date = res->getString(2);
+			result_soap->Date = date.c_str();
+
+			std::string fame = res->getString(3);
+			result_soap->FLastName = fame.c_str();
+
+			std::string sname = res->getString(4);
+			result_soap->SLastName = sname.c_str();
+
+			std::string name = res->getString(5);
+			result_soap->Name = name.c_str();
+
+			result_soap->Telephone = res->getInt(6);
+
+			std::string mail = res->getString(7);
+			result_soap->Email = mail.c_str();
+
+			std::string del = res->getString(8);
+			result_soap->Delegation = del.c_str();
+
+			std::string pass = res->getString(9);
+			result_soap->passw = pass.c_str();
+
+			std::string dir = res->getString(10).c_str();
+			result_soap->Direction = dir.c_str();
+
+			result_soap->status = res->getBoolean(11);
 		}
 	}catch(sql::SQLException &e){
 		  std::cout << "# ERR: SQLException in " << __FILE__;
@@ -90,7 +121,10 @@ int ns__getInfo(struct soap *soap, char *user, char *pass, ns__Usuario *result_s
 		 return soap_sender_fault(soap, "Error 3", "No pude rescatar dato");
 	}
 
+	delete res;
+	delete stmt;
+	delete con;
 
 	return SOAP_OK;
-	delete stmt;
+
 }

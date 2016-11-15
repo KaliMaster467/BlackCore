@@ -7,7 +7,10 @@
   xmlns:ns="urn:BuscarAlumno">
  <SOAP-ENV:Body>
   <ns:getInfo>
-   <busqueda>2</busqueda>
+   <search>
+    <user></user>
+    <pass></pass>
+   </search>
   </ns:getInfo>
  </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

@@ -35,7 +35,8 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
 \******************************************************************************/
 
 class ns__Usuario;	/* Usuario.h:3 */
-struct ns__getInfo;	/* BuscarAlumno.h:8 */
+struct Input;	/* BuscarAlumno.h:7 */
+struct ns__getInfo;	/* BuscarAlumno.h:11 */
 
 /* Usuario.h:3 */
 #ifndef SOAP_TYPE_ns__Usuario
@@ -43,10 +44,28 @@ struct ns__getInfo;	/* BuscarAlumno.h:8 */
 /* complex XSD type 'ns:Usuario': */
 class SOAP_CMAC ns__Usuario {
       public:
-        /// Required element 'id' of XSD type 'xsd:int'
-        int id;
-        /// Required element 'nombre' of XSD type 'xsd:string'
-        std::string nombre;
+        /// Required element 'Id' of XSD type 'xsd:int'
+        int Id;
+        /// Optional element 'Date' of XSD type 'xsd:string'
+        const char *Date;
+        /// Optional element 'FLastName' of XSD type 'xsd:string'
+        const char *FLastName;
+        /// Optional element 'SLastName' of XSD type 'xsd:string'
+        const char *SLastName;
+        /// Optional element 'Name' of XSD type 'xsd:string'
+        const char *Name;
+        /// Required element 'Telephone' of XSD type 'xsd:int'
+        int Telephone;
+        /// Optional element 'Email' of XSD type 'xsd:string'
+        const char *Email;
+        /// Optional element 'Delegation' of XSD type 'xsd:string'
+        const char *Delegation;
+        /// Optional element 'passw' of XSD type 'xsd:string'
+        const char *passw;
+        /// Optional element 'Direction' of XSD type 'xsd:string'
+        const char *Direction;
+        /// Required element 'status' of XSD type 'xsd:boolean'
+        bool status;
       public:
         /// Return unique type id SOAP_TYPE_ns__Usuario
         virtual int soap_type(void) const { return SOAP_TYPE_ns__Usuario; }
@@ -68,7 +87,17 @@ class SOAP_CMAC ns__Usuario {
         /// Constructor with initializations
         ns__Usuario()
         {
-          id = (int)0;
+          Id = (int)0;
+          Date = (char *)0;
+          FLastName = (char *)0;
+          SLastName = (char *)0;
+          Name = (char *)0;
+          Telephone = (int)0;
+          Email = (char *)0;
+          Delegation = (char *)0;
+          passw = (char *)0;
+          Direction = (char *)0;
+          status = (bool)0;
         }
         virtual ~ns__Usuario() { }
         /// Friend allocator used by soap_new_ns__Usuario(struct soap*, int)
@@ -76,31 +105,55 @@ class SOAP_CMAC ns__Usuario {
 };
 #endif
 
-/* BuscarAlumno.h:8 */
+/* BuscarAlumno.h:7 */
+#ifndef SOAP_TYPE_Input
+#define SOAP_TYPE_Input (9)
+/* complex XSD type 'Input': */
+struct Input {
+      public:
+        /** Optional element 'user' of XSD type 'xsd:string' */
+        char *user;
+        /** Optional element 'pass' of XSD type 'xsd:string' */
+        char *pass;
+      public:
+        /** Return unique type id SOAP_TYPE_Input */
+        int soap_type() const { return SOAP_TYPE_Input; }
+        /** Constructor with member initializations */
+        Input()
+        {
+          user = (char *)0;
+          pass = (char *)0;
+        }
+        /** Friend allocator used by soap_new_Input(struct soap*, int) */
+        friend SOAP_FMAC1 Input * SOAP_FMAC2 soap_instantiate_Input(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* BuscarAlumno.h:11 */
 #ifndef SOAP_TYPE_ns__getInfo
-#define SOAP_TYPE_ns__getInfo (11)
+#define SOAP_TYPE_ns__getInfo (13)
 /* complex XSD type 'ns:getInfo': */
 struct ns__getInfo {
       public:
-        /** Required element 'busqueda' of XSD type 'xsd:int' */
-        int busqueda;
+        /** Optional element 'search' of XSD type 'Input' */
+        struct Input *search;
       public:
         /** Return unique type id SOAP_TYPE_ns__getInfo */
         int soap_type() const { return SOAP_TYPE_ns__getInfo; }
         /** Constructor with member initializations */
         ns__getInfo()
         {
-          busqueda = (int)0;
+          search = (struct Input *)0;
         }
         /** Friend allocator used by soap_new_ns__getInfo(struct soap*, int) */
         friend SOAP_FMAC1 ns__getInfo * SOAP_FMAC2 soap_instantiate_ns__getInfo(struct soap*, int, const char*, const char*, size_t*);
 };
 #endif
 
-/* BuscarAlumno.h:8 */
+/* BuscarAlumno.h:12 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (12)
+#define SOAP_TYPE_SOAP_ENV__Header (14)
 /* SOAP_ENV__Header: */
 struct SOAP_ENV__Header {
       public:
@@ -116,10 +169,10 @@ struct SOAP_ENV__Header {
 #endif
 #endif
 
-/* BuscarAlumno.h:8 */
+/* BuscarAlumno.h:12 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (13)
+#define SOAP_TYPE_SOAP_ENV__Code (15)
 /* Type SOAP_ENV__Code is a recursive data type, (in)directly referencing itself through its (base or derived class) members */
 /* SOAP_ENV__Code: */
 struct SOAP_ENV__Code {
@@ -143,10 +196,10 @@ struct SOAP_ENV__Code {
 #endif
 #endif
 
-/* BuscarAlumno.h:8 */
+/* BuscarAlumno.h:12 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (15)
+#define SOAP_TYPE_SOAP_ENV__Detail (17)
 /* SOAP_ENV__Detail: */
 struct SOAP_ENV__Detail {
       public:
@@ -171,10 +224,10 @@ struct SOAP_ENV__Detail {
 #endif
 #endif
 
-/* BuscarAlumno.h:8 */
+/* BuscarAlumno.h:12 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (18)
+#define SOAP_TYPE_SOAP_ENV__Reason (20)
 /* SOAP_ENV__Reason: */
 struct SOAP_ENV__Reason {
       public:
@@ -194,10 +247,10 @@ struct SOAP_ENV__Reason {
 #endif
 #endif
 
-/* BuscarAlumno.h:8 */
+/* BuscarAlumno.h:12 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (19)
+#define SOAP_TYPE_SOAP_ENV__Fault (21)
 /* SOAP_ENV__Fault: */
 struct SOAP_ENV__Fault {
       public:
@@ -277,9 +330,9 @@ typedef char *_XML;
 #define SOAP_TYPE_int (1)
 #endif
 
-/* std::string has binding name 'std__string' for type 'xsd:string' */
-#ifndef SOAP_TYPE_std__string
-#define SOAP_TYPE_std__string (8)
+/* bool has binding name 'bool' for type 'xsd:boolean' */
+#ifndef SOAP_TYPE_bool
+#define SOAP_TYPE_bool (8)
 #endif
 
 /* ns__Usuario has binding name 'ns__Usuario' for type 'ns:Usuario' */
@@ -289,52 +342,62 @@ typedef char *_XML;
 
 /* struct SOAP_ENV__Fault has binding name 'SOAP_ENV__Fault' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (19)
+#define SOAP_TYPE_SOAP_ENV__Fault (21)
 #endif
 
 /* struct SOAP_ENV__Reason has binding name 'SOAP_ENV__Reason' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (18)
+#define SOAP_TYPE_SOAP_ENV__Reason (20)
 #endif
 
 /* struct SOAP_ENV__Detail has binding name 'SOAP_ENV__Detail' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (15)
+#define SOAP_TYPE_SOAP_ENV__Detail (17)
 #endif
 
 /* struct SOAP_ENV__Code has binding name 'SOAP_ENV__Code' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (13)
+#define SOAP_TYPE_SOAP_ENV__Code (15)
 #endif
 
 /* struct SOAP_ENV__Header has binding name 'SOAP_ENV__Header' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (12)
+#define SOAP_TYPE_SOAP_ENV__Header (14)
 #endif
 
 /* struct ns__getInfo has binding name 'ns__getInfo' for type 'ns:getInfo' */
 #ifndef SOAP_TYPE_ns__getInfo
-#define SOAP_TYPE_ns__getInfo (11)
+#define SOAP_TYPE_ns__getInfo (13)
+#endif
+
+/* struct Input has binding name 'Input' for type 'Input' */
+#ifndef SOAP_TYPE_Input
+#define SOAP_TYPE_Input (9)
 #endif
 
 /* struct SOAP_ENV__Reason * has binding name 'PointerToSOAP_ENV__Reason' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_PointerToSOAP_ENV__Reason (21)
+#define SOAP_TYPE_PointerToSOAP_ENV__Reason (23)
 #endif
 
 /* struct SOAP_ENV__Detail * has binding name 'PointerToSOAP_ENV__Detail' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_PointerToSOAP_ENV__Detail (20)
+#define SOAP_TYPE_PointerToSOAP_ENV__Detail (22)
 #endif
 
 /* struct SOAP_ENV__Code * has binding name 'PointerToSOAP_ENV__Code' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_PointerToSOAP_ENV__Code (14)
+#define SOAP_TYPE_PointerToSOAP_ENV__Code (16)
 #endif
 
 /* ns__Usuario * has binding name 'PointerTons__Usuario' for type 'ns:Usuario' */
 #ifndef SOAP_TYPE_PointerTons__Usuario
-#define SOAP_TYPE_PointerTons__Usuario (9)
+#define SOAP_TYPE_PointerTons__Usuario (11)
+#endif
+
+/* struct Input * has binding name 'PointerToInput' for type 'Input' */
+#ifndef SOAP_TYPE_PointerToInput
+#define SOAP_TYPE_PointerToInput (10)
 #endif
 
 /* _XML has binding name '_XML' for type '' */
@@ -366,7 +429,7 @@ typedef char *_XML;
 \******************************************************************************/
 
     /** Web service operation 'ns__getInfo' (returns SOAP_OK or error code) */
-    SOAP_FMAC5 int SOAP_FMAC6 ns__getInfo(struct soap*, int busqueda, ns__Usuario *result_soap);
+    SOAP_FMAC5 int SOAP_FMAC6 ns__getInfo(struct soap*, struct Input *search, ns__Usuario *result_soap);
 
 /******************************************************************************\
  *                                                                            *

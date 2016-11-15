@@ -123,64 +123,41 @@ inline int soap_read_int(struct soap *soap, int *p)
 }
 #endif
 
-#ifndef SOAP_TYPE_std__string_DEFINED
-#define SOAP_TYPE_std__string_DEFINED
+#ifndef SOAP_TYPE_bool_DEFINED
+#define SOAP_TYPE_bool_DEFINED
 
-inline void soap_default_std__string(struct soap *soap, std::string *p)
+inline void soap_default_bool(struct soap *soap, bool *a)
 {
 	(void)soap; /* appease -Wall -Werror */
-	p->erase();
+#ifdef SOAP_DEFAULT_bool
+	*a = SOAP_DEFAULT_bool;
+#else
+	*a = (bool)0;
+#endif
 }
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__string(struct soap*, const std::string *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_bool(struct soap*, const char*, int, const bool *, const char*);
+SOAP_FMAC3S const char* SOAP_FMAC4S soap_bool2s(struct soap*, bool);
+SOAP_FMAC3 bool * SOAP_FMAC4 soap_in_bool(struct soap*, const char*, bool *, const char*);
+SOAP_FMAC3S int SOAP_FMAC4S soap_s2bool(struct soap*, const char*, bool *);
 
-#define soap_std__string2s(soap, a) ((a).c_str())
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_std__string(struct soap*, const char*, int, const std::string*, const char*);
+SOAP_FMAC3 bool * SOAP_FMAC4 soap_new_bool(struct soap *soap, int n = -1);
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_bool(struct soap*, const bool *, const char*, const char*);
 
-#define soap_s2std__string(soap, s, a) soap_s2stdchar((soap), (s), (a), 0, -1, NULL)
-SOAP_FMAC3 std::string * SOAP_FMAC4 soap_in_std__string(struct soap*, const char*, std::string*, const char*);
-SOAP_FMAC1 std::string * SOAP_FMAC2 soap_instantiate_std__string(struct soap*, int, const char*, const char*, size_t*);
-
-inline std::string * soap_new_std__string(struct soap *soap, int n = -1)
-{
-	return soap_instantiate_std__string(soap, n, NULL, NULL, NULL);
-}
-
-inline std::string * soap_new_req_std__string(
-	struct soap *soap)
-{
-	std::string *_p = soap_new_std__string(soap);
-	if (_p)
-	{	soap_default_std__string(soap, _p);
-	}
-	return _p;
-}
-
-inline std::string * soap_new_set_std__string(
-	struct soap *soap)
-{
-	std::string *_p = soap_new_std__string(soap);
-	if (_p)
-	{	soap_default_std__string(soap, _p);
-	}
-	return _p;
-}
-SOAP_FMAC3 int SOAP_FMAC4 soap_put_std__string(struct soap*, const std::string *, const char*, const char*);
-
-inline int soap_write_std__string(struct soap *soap, std::string const*p)
+inline int soap_write_bool(struct soap *soap, bool const*p)
 {
 	soap_free_temp(soap);
 	if (p)
-	{	if (soap_begin_send(soap) || soap_put_std__string(soap, p, "string", "") || soap_end_send(soap))
+	{	if (soap_begin_send(soap) || soap_put_bool(soap, p, "boolean", "") || soap_end_send(soap))
 			return soap->error;
 	}
 	return SOAP_OK;
 }
-SOAP_FMAC3 std::string * SOAP_FMAC4 soap_get_std__string(struct soap*, std::string *, const char*, const char*);
+SOAP_FMAC3 bool * SOAP_FMAC4 soap_get_bool(struct soap*, bool *, const char*, const char*);
 
-inline int soap_read_std__string(struct soap *soap, std::string *p)
+inline int soap_read_bool(struct soap *soap, bool *p)
 {
 	if (p)
-	{	if (soap_begin_recv(soap) || soap_get_std__string(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+	{	if (soap_begin_recv(soap) || soap_get_bool(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
 			return soap->error;
 	}
 	return SOAP_OK;
@@ -200,28 +177,48 @@ inline ns__Usuario * soap_new_ns__Usuario(struct soap *soap, int n = -1)
 
 inline ns__Usuario * soap_new_req_ns__Usuario(
 	struct soap *soap,
-	int id,
-	const std::string& nombre)
+	int Id,
+	int Telephone,
+	bool status)
 {
 	ns__Usuario *_p = soap_new_ns__Usuario(soap);
 	if (_p)
 	{	_p->soap_default(soap);
-		_p->ns__Usuario::id = id;
-		_p->ns__Usuario::nombre = nombre;
+		_p->ns__Usuario::Id = Id;
+		_p->ns__Usuario::Telephone = Telephone;
+		_p->ns__Usuario::status = status;
 	}
 	return _p;
 }
 
 inline ns__Usuario * soap_new_set_ns__Usuario(
 	struct soap *soap,
-	int id,
-	const std::string& nombre)
+	int Id,
+	const char *Date,
+	const char *FLastName,
+	const char *SLastName,
+	const char *Name,
+	int Telephone,
+	const char *Email,
+	const char *Delegation,
+	const char *passw,
+	const char *Direction,
+	bool status)
 {
 	ns__Usuario *_p = soap_new_ns__Usuario(soap);
 	if (_p)
 	{	_p->soap_default(soap);
-		_p->ns__Usuario::id = id;
-		_p->ns__Usuario::nombre = nombre;
+		_p->ns__Usuario::Id = Id;
+		_p->ns__Usuario::Date = Date;
+		_p->ns__Usuario::FLastName = FLastName;
+		_p->ns__Usuario::SLastName = SLastName;
+		_p->ns__Usuario::Name = Name;
+		_p->ns__Usuario::Telephone = Telephone;
+		_p->ns__Usuario::Email = Email;
+		_p->ns__Usuario::Delegation = Delegation;
+		_p->ns__Usuario::passw = passw;
+		_p->ns__Usuario::Direction = Direction;
+		_p->ns__Usuario::status = status;
 	}
 	return _p;
 }
@@ -596,25 +593,23 @@ inline struct ns__getInfo * soap_new_ns__getInfo(struct soap *soap, int n = -1)
 }
 
 inline struct ns__getInfo * soap_new_req_ns__getInfo(
-	struct soap *soap,
-	int busqueda)
+	struct soap *soap)
 {
 	struct ns__getInfo *_p = soap_new_ns__getInfo(soap);
 	if (_p)
 	{	soap_default_ns__getInfo(soap, _p);
-		_p->busqueda = busqueda;
 	}
 	return _p;
 }
 
 inline struct ns__getInfo * soap_new_set_ns__getInfo(
 	struct soap *soap,
-	int busqueda)
+	struct Input *search)
 {
 	struct ns__getInfo *_p = soap_new_ns__getInfo(soap);
 	if (_p)
 	{	soap_default_ns__getInfo(soap, _p);
-		_p->busqueda = busqueda;
+		_p->search = search;
 	}
 	return _p;
 }
@@ -636,6 +631,66 @@ inline int soap_read_ns__getInfo(struct soap *soap, struct ns__getInfo *p)
 	if (p)
 	{	soap_default_ns__getInfo(soap, p);
 		if (soap_begin_recv(soap) || soap_get_ns__getInfo(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+#endif
+
+#ifndef SOAP_TYPE_Input_DEFINED
+#define SOAP_TYPE_Input_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_Input(struct soap*, struct Input *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_Input(struct soap*, const struct Input *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_Input(struct soap*, const char*, int, const struct Input *, const char*);
+SOAP_FMAC3 struct Input * SOAP_FMAC4 soap_in_Input(struct soap*, const char*, struct Input *, const char*);
+SOAP_FMAC1 struct Input * SOAP_FMAC2 soap_instantiate_Input(struct soap*, int, const char*, const char*, size_t*);
+
+inline struct Input * soap_new_Input(struct soap *soap, int n = -1)
+{
+	return soap_instantiate_Input(soap, n, NULL, NULL, NULL);
+}
+
+inline struct Input * soap_new_req_Input(
+	struct soap *soap)
+{
+	struct Input *_p = soap_new_Input(soap);
+	if (_p)
+	{	soap_default_Input(soap, _p);
+	}
+	return _p;
+}
+
+inline struct Input * soap_new_set_Input(
+	struct soap *soap,
+	char *user,
+	char *pass)
+{
+	struct Input *_p = soap_new_Input(soap);
+	if (_p)
+	{	soap_default_Input(soap, _p);
+		_p->user = user;
+		_p->pass = pass;
+	}
+	return _p;
+}
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_Input(struct soap*, const struct Input *, const char*, const char*);
+
+inline int soap_write_Input(struct soap *soap, struct Input const*p)
+{
+	soap_free_temp(soap);
+	if (p)
+	{	if (soap_begin_send(soap) || (soap_serialize_Input(soap, p), 0) || soap_put_Input(soap, p, "Input", "") || soap_end_send(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+SOAP_FMAC3 struct Input * SOAP_FMAC4 soap_get_Input(struct soap*, struct Input *, const char*, const char*);
+
+inline int soap_read_Input(struct soap *soap, struct Input *p)
+{
+	if (p)
+	{	soap_default_Input(soap, p);
+		if (soap_begin_recv(soap) || soap_get_Input(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
 			return soap->error;
 	}
 	return SOAP_OK;
@@ -688,6 +743,15 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons__Usuario(struct soap*, const char
 SOAP_FMAC3 ns__Usuario ** SOAP_FMAC4 soap_in_PointerTons__Usuario(struct soap*, const char*, ns__Usuario **, const char*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons__Usuario(struct soap*, ns__Usuario *const*, const char*, const char*);
 SOAP_FMAC3 ns__Usuario ** SOAP_FMAC4 soap_get_PointerTons__Usuario(struct soap*, ns__Usuario **, const char*, const char*);
+#endif
+
+#ifndef SOAP_TYPE_PointerToInput_DEFINED
+#define SOAP_TYPE_PointerToInput_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToInput(struct soap*, struct Input *const*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToInput(struct soap*, const char *, int, struct Input *const*, const char *);
+SOAP_FMAC3 struct Input ** SOAP_FMAC4 soap_in_PointerToInput(struct soap*, const char*, struct Input **, const char*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToInput(struct soap*, struct Input *const*, const char*, const char*);
+SOAP_FMAC3 struct Input ** SOAP_FMAC4 soap_get_PointerToInput(struct soap*, struct Input **, const char*, const char*);
 #endif
 
 #ifndef SOAP_TYPE__XML_DEFINED

@@ -26,11 +26,17 @@
     elementFormDefault="unqualified"
     attributeFormDefault="unqualified">
     <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="Input"><!-- Input -->
+          <sequence>
+            <element name="user" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::user -->
+            <element name="pass" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::pass -->
+          </sequence>
+    </complexType>
     <!-- operation request element -->
     <element name="getInfo">
       <complexType>
           <sequence>
-            <element name="busqueda" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__getInfo::busqueda -->
+            <element name="search" type="ns:Input" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfo::search -->
           </sequence>
       </complexType>
     </element>
@@ -38,8 +44,17 @@
     <element name="Usuario" type="ns:Usuario"/>
     <complexType name="Usuario">
           <sequence>
-            <element name="id" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::id -->
-            <element name="nombre" type="xsd:string" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::nombre -->
+            <element name="Id" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::Id -->
+            <element name="Date" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::Date -->
+            <element name="FLastName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::FLastName -->
+            <element name="SLastName" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::SLastName -->
+            <element name="Name" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::Name -->
+            <element name="Telephone" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::Telephone -->
+            <element name="Email" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::Email -->
+            <element name="Delegation" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::Delegation -->
+            <element name="passw" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::passw -->
+            <element name="Direction" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__Usuario::Direction -->
+            <element name="status" type="xsd:boolean" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::status -->
           </sequence>
     </complexType>
   </schema>

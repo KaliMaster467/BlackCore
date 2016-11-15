@@ -4,5 +4,8 @@
 //gsoap ns schema namespace: urn:BuscarAlumno
 
 #import "Usuario.h"
-
-int ns__getInfo(char *user, char * pass, ns__Usuario *result_soap);
+struct Input{
+  char *user;
+  char *pass;
+};
+int ns__getInfo(struct Input *search, ns__Usuario *result_soap);

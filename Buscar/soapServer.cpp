@@ -17,7 +17,7 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
 #endif
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapServer.cpp ver 2.8.36 2016-11-08 19:32:57 GMT")
+SOAP_SOURCE_STAMP("@(#) soapServer.cpp ver 2.8.36 2016-11-15 19:27:24 GMT")
 extern "C" SOAP_FMAC5 int SOAP_FMAC6 soap_serve(struct soap *soap)
 {
 #ifndef WITH_FASTCGI
@@ -73,7 +73,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_ns__getInfo(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = ns__getInfo(soap, soap_tmp_ns__getInfo.busqueda, &result_soap);
+	soap->error = ns__getInfo(soap, soap_tmp_ns__getInfo.search, &result_soap);
 	if (soap->error)
 		return soap->error;
 	soap->encodingStyle = NULL;
