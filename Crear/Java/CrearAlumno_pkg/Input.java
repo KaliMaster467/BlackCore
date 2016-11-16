@@ -4,7 +4,6 @@
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Jan 15, 2016 (09:43:21 UTC) WSDL2Java emitter.
  */
-
 package CrearAlumno_pkg;
 
 public class Input  implements java.io.Serializable {
@@ -49,7 +48,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the FLastName value for this Input.
-     * 
+     *
      * @return FLastName
      */
     public java.lang.String getFLastName() {
@@ -59,7 +58,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the FLastName value for this Input.
-     * 
+     *
      * @param FLastName
      */
     public void setFLastName(java.lang.String FLastName) {
@@ -69,7 +68,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the SLastName value for this Input.
-     * 
+     *
      * @return SLastName
      */
     public java.lang.String getSLastName() {
@@ -79,7 +78,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the SLastName value for this Input.
-     * 
+     *
      * @param SLastName
      */
     public void setSLastName(java.lang.String SLastName) {
@@ -89,7 +88,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the name value for this Input.
-     * 
+     *
      * @return name
      */
     public java.lang.String getName() {
@@ -99,7 +98,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the name value for this Input.
-     * 
+     *
      * @param name
      */
     public void setName(java.lang.String name) {
@@ -109,7 +108,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the telephone value for this Input.
-     * 
+     *
      * @return telephone
      */
     public int getTelephone() {
@@ -119,7 +118,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the telephone value for this Input.
-     * 
+     *
      * @param telephone
      */
     public void setTelephone(int telephone) {
@@ -129,7 +128,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the email value for this Input.
-     * 
+     *
      * @return email
      */
     public java.lang.String getEmail() {
@@ -139,7 +138,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the email value for this Input.
-     * 
+     *
      * @param email
      */
     public void setEmail(java.lang.String email) {
@@ -149,7 +148,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the delegation value for this Input.
-     * 
+     *
      * @return delegation
      */
     public java.lang.String getDelegation() {
@@ -159,7 +158,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the delegation value for this Input.
-     * 
+     *
      * @param delegation
      */
     public void setDelegation(java.lang.String delegation) {
@@ -169,7 +168,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the passw value for this Input.
-     * 
+     *
      * @return passw
      */
     public java.lang.String getPassw() {
@@ -179,7 +178,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the passw value for this Input.
-     * 
+     *
      * @param passw
      */
     public void setPassw(java.lang.String passw) {
@@ -189,7 +188,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Gets the direction value for this Input.
-     * 
+     *
      * @return direction
      */
     public java.lang.String getDirection() {
@@ -199,7 +198,7 @@ public class Input  implements java.io.Serializable {
 
     /**
      * Sets the direction value for this Input.
-     * 
+     *
      * @param direction
      */
     public void setDirection(java.lang.String direction) {
@@ -217,27 +216,27 @@ public class Input  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.FLastName==null && other.getFLastName()==null) || 
+        _equals = true &&
+            ((this.FLastName==null && other.getFLastName()==null) ||
              (this.FLastName!=null &&
               this.FLastName.equals(other.getFLastName()))) &&
-            ((this.SLastName==null && other.getSLastName()==null) || 
+            ((this.SLastName==null && other.getSLastName()==null) ||
              (this.SLastName!=null &&
               this.SLastName.equals(other.getSLastName()))) &&
-            ((this.name==null && other.getName()==null) || 
+            ((this.name==null && other.getName()==null) ||
              (this.name!=null &&
               this.name.equals(other.getName()))) &&
             this.telephone == other.getTelephone() &&
-            ((this.email==null && other.getEmail()==null) || 
+            ((this.email==null && other.getEmail()==null) ||
              (this.email!=null &&
               this.email.equals(other.getEmail()))) &&
-            ((this.delegation==null && other.getDelegation()==null) || 
+            ((this.delegation==null && other.getDelegation()==null) ||
              (this.delegation!=null &&
               this.delegation.equals(other.getDelegation()))) &&
-            ((this.passw==null && other.getPassw()==null) || 
+            ((this.passw==null && other.getPassw()==null) ||
              (this.passw!=null &&
               this.passw.equals(other.getPassw()))) &&
-            ((this.direction==null && other.getDirection()==null) || 
+            ((this.direction==null && other.getDirection()==null) ||
              (this.direction!=null &&
               this.direction.equals(other.getDirection())));
         __equalsCalc = null;
@@ -351,10 +350,10 @@ public class Input  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -363,10 +362,10 @@ public class Input  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }
