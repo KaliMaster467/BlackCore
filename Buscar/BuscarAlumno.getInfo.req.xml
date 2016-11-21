@@ -8,7 +8,7 @@
  <SOAP-ENV:Body>
   <ns:getInfo>
    <search>
-    <user></user>
+    <user>Al</user>
     <pass></pass>
    </search>
   </ns:getInfo>

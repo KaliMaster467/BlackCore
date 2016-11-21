@@ -1,27 +1,27 @@
 /**
- * CrearAlumnoLocator.java
+ * CrearAlumno_ServiceLocator.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Jan 15, 2016 (09:43:21 UTC) WSDL2Java emitter.
  */
 
-package CrearAlumno_pkg;
+package CrearAlumno;
 
-public class CrearAlumnoLocator extends org.apache.axis.client.Service implements CrearAlumno_pkg.CrearAlumno {
+public class CrearAlumno_ServiceLocator extends org.apache.axis.client.Service implements CrearAlumno.CrearAlumno_Service {
 
 /**
  * gSOAP 2.8.36 generated service definition
  */
 
-    public CrearAlumnoLocator() {
+    public CrearAlumno_ServiceLocator() {
     }
 
 
-    public CrearAlumnoLocator(org.apache.axis.EngineConfiguration config) {
+    public CrearAlumno_ServiceLocator(org.apache.axis.EngineConfiguration config) {
         super(config);
     }
 
-    public CrearAlumnoLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
+    public CrearAlumno_ServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
         super(wsdlLoc, sName);
     }
 
@@ -43,7 +43,7 @@ public class CrearAlumnoLocator extends org.apache.axis.client.Service implement
         CrearAlumnoWSDDServiceName = name;
     }
 
-    public CrearAlumno_pkg.CrearAlumnoPortType getCrearAlumno() throws javax.xml.rpc.ServiceException {
+    public CrearAlumno.CrearAlumnoPortType getCrearAlumno() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(CrearAlumno_address);
@@ -54,9 +54,9 @@ public class CrearAlumnoLocator extends org.apache.axis.client.Service implement
         return getCrearAlumno(endpoint);
     }
 
-    public CrearAlumno_pkg.CrearAlumnoPortType getCrearAlumno(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public CrearAlumno.CrearAlumnoPortType getCrearAlumno(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            CrearAlumno_pkg.CrearAlumnoStub _stub = new CrearAlumno_pkg.CrearAlumnoStub(portAddress, this);
+            CrearAlumno.CrearAlumno_BindingStub _stub = new CrearAlumno.CrearAlumno_BindingStub(portAddress, this);
             _stub.setPortName(getCrearAlumnoWSDDServiceName());
             return _stub;
         }
@@ -76,8 +76,8 @@ public class CrearAlumnoLocator extends org.apache.axis.client.Service implement
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (CrearAlumno_pkg.CrearAlumnoPortType.class.isAssignableFrom(serviceEndpointInterface)) {
-                CrearAlumno_pkg.CrearAlumnoStub _stub = new CrearAlumno_pkg.CrearAlumnoStub(new java.net.URL(CrearAlumno_address), this);
+            if (CrearAlumno.CrearAlumnoPortType.class.isAssignableFrom(serviceEndpointInterface)) {
+                CrearAlumno.CrearAlumno_BindingStub _stub = new CrearAlumno.CrearAlumno_BindingStub(new java.net.URL(CrearAlumno_address), this);
                 _stub.setPortName(getCrearAlumnoWSDDServiceName());
                 return _stub;
             }
@@ -126,11 +126,11 @@ public class CrearAlumnoLocator extends org.apache.axis.client.Service implement
     * Set the endpoint address for the specified port name.
     */
     public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
-
+        
 if ("CrearAlumno".equals(portName)) {
             setCrearAlumnoEndpointAddress(address);
         }
-        else
+        else 
 { // Unknown Port Name
             throw new javax.xml.rpc.ServiceException(" Cannot set Endpoint Address for Unknown Port" + portName);
         }
