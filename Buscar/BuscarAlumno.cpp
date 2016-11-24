@@ -51,8 +51,8 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 	char query[1000];
 	char user[20];
 
-	sprintf(user, "%s", search->user);
-
+	sprintf(user, "%.11s", search->user);
+	//std::string usuario(search->user);
 	//std::string usuario(search->user);
 	//std::string psw(search->pass);
 
@@ -77,17 +77,18 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 		res = stmt->executeQuery(query);
 		while(res->next()){
 
-			for(int i = 1; i < 12; i++)
-				std::cout << res->getString(i) << std::endl;
+			//for(int i = 1; i < 12; i++)
+				//std::cout << res->getString(i) << std::endl;
+
+
+
+			//std::string date = res->getString(2);
+			//result_soap->Date = date.c_str();
 
 			result_soap->Id = res->getInt(1);
-
-			std::string date = res->getString(2);
-			result_soap->Date = date.c_str();
-
 			std::string fame = res->getString(3);
 			result_soap->FLastName = fame.c_str();
-
+			result_soap->Date = fame.c_str();
 			std::string sname = res->getString(4);
 			result_soap->SLastName = sname.c_str();
 
@@ -109,12 +110,14 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 			result_soap->Direction = dir.c_str();
 
 			result_soap->status = res->getBoolean(11);
+
+
 		}
 	}catch(sql::SQLException &e){
 		  std::cout << "# ERR: SQLException in " << __FILE__;
   std::cout << "(" << __FUNCTION__ << ") on line "
      << __LINE__ << std::endl;
-  std::cout << "# ERR: " << e.what();
+  std::cout << "#ERR: " << e.what();
   std::cout << " (MySQL error code: " << e.getErrorCode();
   std::cout << ", SQLState: " << e.getSQLState() <<
      " )" << std::endl;

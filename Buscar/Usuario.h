@@ -2,7 +2,6 @@
 
 class ns__Usuario
 {
-public:
 	int Id;
 	const char *Date;
 	const char *FLastName;
