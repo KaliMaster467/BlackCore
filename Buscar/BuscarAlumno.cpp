@@ -50,8 +50,10 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 
 	char query[1000];
 	char user[20];
+	char pass[30];
 
 	sprintf(user, "%.11s", search->user);
+	sprintf(pass, "%.11s", search->pass);
 	//std::string usuario(search->user);
 	//std::string usuario(search->user);
 	//std::string psw(search->pass);
@@ -73,44 +75,34 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 
 	try{
 		stmt = con->createStatement();
-		sprintf(query, "SELECT * FROM Users WHERE UserRealName = '%s'",user);
+		sprintf(query, "SELECT * FROM Users WHERE UserRealName = '%s' AND UserPass = '%s'",user, pass);
 		res = stmt->executeQuery(query);
 		while(res->next()){
 
-			//for(int i = 1; i < 12; i++)
-				//std::cout << res->getString(i) << std::endl;
-
-
-
-			//std::string date = res->getString(2);
-			//result_soap->Date = date.c_str();
-
 			result_soap->Id = res->getInt(1);
-			std::string fame = res->getString(3);
-			result_soap->FLastName = fame.c_str();
-			result_soap->Date = fame.c_str();
-			std::string sname = res->getString(4);
-			result_soap->SLastName = sname.c_str();
-
-			std::string name = res->getString(5);
-			result_soap->Name = name.c_str();
-
-			result_soap->Telephone = res->getInt(6);
-
-			std::string mail = res->getString(7);
-			result_soap->Email = mail.c_str();
-
-			std::string del = res->getString(8);
-			result_soap->Delegation = del.c_str();
-
-			std::string pass = res->getString(9);
-			result_soap->passw = pass.c_str();
-
-			std::string dir = res->getString(10).c_str();
-			result_soap->Direction = dir.c_str();
 
 			result_soap->status = res->getBoolean(11);
 
+
+			std::string sname = res->getString(4);
+			result_soap->SLastName = "gg";
+			std::string fame = res->getString(3);
+			result_soap->FLastName = fame.c_str();
+			std::string name = res->getString(5);
+			result_soap->Name = name.c_str();
+			result_soap->Telephone = res->getInt(6);
+			std::string mail = res->getString(7);
+			result_soap->Email = mail.c_str();
+			std::string del = res->getString(8);
+			result_soap->Delegation = del.c_str();
+			std::string pass = res->getString(9);
+			result_soap->passw = pass.c_str();
+
+			std::string dir = res->getString(10);
+			result_soap->Direction = dir.c_str();
+
+			std::string date = res->getString(2);
+			result_soap->Date = date.c_str();
 
 		}
 	}catch(sql::SQLException &e){

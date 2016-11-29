@@ -9,7 +9,7 @@
   <ns:getInfo>
    <search>
     <user>Alberto</user>
-    <pass></pass>
+    <pass>hol</pass>
    </search>
   </ns:getInfo>
  </SOAP-ENV:Body>
