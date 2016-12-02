@@ -50,10 +50,10 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 
 	char query[1000];
 	char user[20];
-	char pass[30];
+	char pass[100];
 
 	sprintf(user, "%.11s", search->user);
-	sprintf(pass, "%.11s", search->pass);
+	sprintf(pass, "%s", search->pass);
 	//std::string usuario(search->user);
 	//std::string usuario(search->user);
 	//std::string psw(search->pass);

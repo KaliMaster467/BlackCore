@@ -1,6 +1,6 @@
 //gsoap ns service name: CrearAlumno
 //gsoap ns service namespace: urn:CrearAlumno
-//gsoap ns service location: http://localhost/cgi-bin/CrearAlumno.cgi
+//gsoap ns service location: http://192.168.1.69/cgi-bin/CrearAlumno.cgi
 //gsoap ns schema namespace: urn:CrearAlumno
 struct Input{
 	const char *FLastName;
