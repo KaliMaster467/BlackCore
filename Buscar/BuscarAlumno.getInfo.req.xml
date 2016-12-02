@@ -8,8 +8,8 @@
  <SOAP-ENV:Body>
   <ns:getInfo>
    <search>
-    <user>Alberto</user>
-    <pass>hol</pass>
+    <user></user>
+    <pass></pass>
    </search>
   </ns:getInfo>
  </SOAP-ENV:Body>

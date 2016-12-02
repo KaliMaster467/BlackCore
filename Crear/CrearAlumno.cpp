@@ -8,7 +8,7 @@
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
-
+#include "md5.h"
 #define PATH "/var/log/CreaAlumno/"
 #define server "localhost"
 #define user "root"
@@ -83,7 +83,7 @@ int ns__getInfo(struct soap *soap, struct Input *insert, struct ns__getInfoRespo
 		pstmt->setInt(4, insert->Telephone);
 		pstmt->setString(5, mail);
 		pstmt->setString(6, del);
-		pstmt->setString(7, passw);
+		pstmt->setString(7, md5(passw));
 		pstmt->setString(8, dir);
 
 		pstmt->executeUpdate();
