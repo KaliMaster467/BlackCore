@@ -52,7 +52,7 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 	char user[20];
 	char pass[100];
 
-	sprintf(user, "%.11s", search->user);
+	sprintf(user, "%s", search->user);
 	sprintf(pass, "%s", search->pass);
 	//std::string usuario(search->user);
 	//std::string usuario(search->user);
@@ -75,7 +75,7 @@ int ns__getInfo(struct soap *soap, struct Input *search, ns__Usuario *result_soa
 
 	try{
 		stmt = con->createStatement();
-		sprintf(query, "SELECT * FROM Users WHERE UserRealName = '%s' AND UserPass = '%s'",user, pass);
+		sprintf(query, "SELECT * FROM Users WHERE BINARY UserRealName = '%s' AND UserPass = '%s'",user, pass);
 		res = stmt->executeQuery(query);
 		while(res->next()){
 
