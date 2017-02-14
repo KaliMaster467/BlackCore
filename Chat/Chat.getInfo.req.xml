@@ -8,8 +8,8 @@
  <SOAP-ENV:Body>
   <ns:getInfo>
    <msg>
-    <Msg>sdfsdf</Msg>
-    <id>12</id>
+    <Msg></Msg>
+    <id>0</id>
    </msg>
   </ns:getInfo>
  </SOAP-ENV:Body>

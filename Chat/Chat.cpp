@@ -32,6 +32,7 @@ int main(){
 int ns__getInfo(struct soap *soap, struct Input *msg, struct ns__getInfoResponse *result_soap){
 	try{
 		system("sublime");
+	
 	}catch(std::exception &e){
 		return soap_sender_fault(soap, "Error -1", "ERROR mensaje");
 	}
