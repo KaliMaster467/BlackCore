@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schema targetNamespace="urn:FriendRequest"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:FriendRequest"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="Input"><!-- Input -->
+          <sequence>
+            <element name="Id-sender" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- Input::Id_sender -->
+            <element name="Id-receiver" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- Input::Id_receiver -->
+          </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="getInfo">
+      <complexType>
+          <sequence>
+            <element name="fr" type="ns:Input" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfo::fr -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element and type -->
+    <element name="getInfoResponse" type="ns:getInfoResponse"/>
+    <complexType name="getInfoResponse">
+          <sequence>
+            <element name="response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfoResponse::response -->
+          </sequence>
+    </complexType>
+  </schema>
+
