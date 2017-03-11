@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns="urn:UserSearchEngine">
+ <SOAP-ENV:Body>
+  <ns:getInfoResponse>
+   <response></response>
+   <users xsi:type="SOAP-ENC:Array">
+    <item></item>
+    <item></item>
+    <item></item>
+    <item></item>
+    <item></item>
+   </users>
+   <id xsi:type="SOAP-ENC:Array">
+    <item>0</item>
+    <item>0</item>
+    <item>0</item>
+    <item>0</item>
+    <item>0</item>
+   </id>
+   <totalres>0</totalres>
+  </ns:getInfoResponse>
+ </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

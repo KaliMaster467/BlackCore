@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schema targetNamespace="urn:UserSearchEngine"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:UserSearchEngine"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="Input"><!-- Input -->
+          <sequence>
+            <element name="User" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- Input::User -->
+          </sequence>
+    </complexType>
+    <complexType name="Array5Ofint">
+        <sequence>
+          <element name="item" type="xsd:int" minOccurs="0" maxOccurs="5"/>
+        </sequence>
+    </complexType>
+    <complexType name="Array5Ofstd__string">
+        <sequence>
+          <element name="item" type="xsd:string" minOccurs="0" maxOccurs="5"/>
+        </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="getInfo">
+      <complexType>
+          <sequence>
+            <element name="fr" type="ns:Input" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfo::fr -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element and type -->
+    <element name="getInfoResponse" type="ns:getInfoResponse"/>
+    <complexType name="getInfoResponse">
+          <sequence>
+            <element name="response" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- ns__getInfoResponse::response -->
+            <element name="users" type="ns:Array5Ofstd__string" minOccurs="1" maxOccurs="1" nillable="true"/><!-- ns__getInfoResponse::users -->
+            <element name="id" type="ns:Array5Ofint" minOccurs="1" maxOccurs="1" nillable="true"/><!-- ns__getInfoResponse::id -->
+            <element name="totalres" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__getInfoResponse::totalres -->
+          </sequence>
+    </complexType>
+  </schema>
+
