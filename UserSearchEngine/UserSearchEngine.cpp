@@ -15,5 +15,15 @@ int cont;
 
 int main()
 {
-
+    struct soap soap;
+    soap_init(&soap);
+    soap_serve(&soap);
+}
+int ns_getInfo(struct soap *soap, struct Input *users, struct ns_getInfoResponse *result_soap)
+{
+    sql::Driver *driver;
+    sql::Connection *con;
+    sql::Statement * stmt;
+    sql::ResultSet *res;
+    sql::PreparedStatement *pstmt;
 }
